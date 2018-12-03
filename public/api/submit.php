@@ -16,4 +16,11 @@ FilePond\RequestHandler::catchExceptions();
 $items = FilePond\RequestHandler::loadFilesByField('filepond');
 
 // Items will always be an array as multiple files could be submitted
-FilePond\RequestHandler::save($items, 'uploads');
+$result = FilePond\RequestHandler::save($items, 'uploads');
+
+// Echo save results to screen
+foreach($result as $key=>$value) {
+    $filename = $items[$key]->getName();
+    $saveResult = $value === 0 ? 'failure' : 'success';
+    echo $filename . ': ' . $saveResult . '<br>';
+}
